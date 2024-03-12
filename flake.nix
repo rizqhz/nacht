@@ -14,10 +14,6 @@
         packages = with pkgs; [
           go_1_22
         ];
-
-        GOPATH  = ~/w/go;
-        GOCACHE = ~/w/go/cache;
-        GOENV   = ~/w/go/env;
       };
 
       llvm = pkgs.mkShellNoCC rec {
