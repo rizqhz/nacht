@@ -1,26 +1,25 @@
 {
-  description = "Nacht • Akasha Nix Flake";
+  description = "Nacht • Akasha's Nix Flake";
 
   inputs = rec {
     nixpkgs.url = "flake:nixpkgs";
+    utils.url = "flake:flake-utils";
+    parts.url = "flake:flake-parts";
   };
 
-  outputs = { self, nixpkgs, ... }: let
-    system = "x86_64-linux";
-    pkgs = nixpkgs.legacyPackages.${system};
-  in {
-    devShells.${system} = {
-      backend = pkgs.mkShellNoCC rec {
-        packages = with pkgs; [
-          go_1_22
-        ];
+  outputs = { self, nixpkgs, utils, parts, ... } @ inputs: let
+    systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
+    forEachSystems = fn: nixpkgs.lib.pkgAttrs systems (system: fn {
+      pkgs = import nixpkgs { inherit system; };
+    });
+  in rec {
+    overlays = import ./overlays { inherit inputs; };
+    devShells = forEachSystems ({ pkgs }: rec {
+      default = pkgs.mkShell {
+        shellHook = ''
+          echo -e "Hello Flakes"
+        '';
       };
-
-      llvm = pkgs.mkShellNoCC rec {
-        packages = with pkgs.llvmPackages; [
-          clangUseLLVM
-        ];
-      };
-    };
+    });
   };
 }
