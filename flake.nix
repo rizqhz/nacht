@@ -9,7 +9,7 @@
 
   outputs = { self, nixpkgs, utils, parts, ... } @ inputs: let
     systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-    forEachSystems = fn: nixpkgs.lib.pkgAttrs systems (system: fn {
+    forEachSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {
       pkgs = import nixpkgs { inherit system; };
     });
   in rec {
