@@ -7,15 +7,23 @@
     parts.url = "flake:flake-parts";
   };
 
-  outputs = { self, nixpkgs, utils, parts, ... } @ inputs: let
+  outputs = { self, nixpkgs, utils, parts, ... } @ inputs:
+  let
     systems = [ "x86_64-linux" "aarch64-linux" "aarch64-darwin" "x86_64-darwin" ];
-    forEachSystems = fn: nixpkgs.lib.genAttrs systems (system: fn {
-      pkgs = import nixpkgs { inherit system; };
-    });
+    forEachSystems = fn: nixpkgs.lib.genAttrs systems (
+      system: fn {
+        pkgs = import nixpkgs {
+          inherit system;
+          overlays = import ./overlays { inherit inputs; };
+        };
+      }
+    );
   in rec {
-    overlays = import ./overlays { inherit inputs; };
     devShells = forEachSystems ({ pkgs }: rec {
       default = pkgs.mkShell {
+        packages = [
+          pkgs.go
+        ];
         shellHook = ''
           echo -e "Hello Flakes"
         '';
