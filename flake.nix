@@ -21,8 +21,8 @@
   in rec {
     devShells = forEachSystems ({ pkgs }: rec {
       default = pkgs.mkShell {
-        packages = [
-          pkgs.go
+        packages = with pkgs; [
+          go php composer
         ];
         shellHook = ''
           echo -e "Hello Flakes"
