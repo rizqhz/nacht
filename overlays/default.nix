@@ -1,5 +1,3 @@
-{ inputs, ... }: rec {
-   default = [
-      import ./go.nix
-   ];
-}
+{ inputs, ... } @ params: [
+   (import ./go.nix)
+]
