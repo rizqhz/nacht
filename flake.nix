@@ -25,14 +25,14 @@
           llvm go php composer node
         ];
 
-        GO111MODULE = "on";
-        GOPATH = ~/work/go;
-        GOBIN = ~/env/go/bin;
-        GOMODCACHE = ~/env/go/pkg/mod;
-        GOCACHE = ~/env/go/cache;
-
         shellHook = ''
-          echo -e "[λ] ${description}"
+          echo -e "[λ] Nacht • Akasha's Nix Flake"
+          export GO111MODULE='on';
+          export GOPATH=$HOME/work/go;
+          export GOBIN=$HOME/env/go/bin;
+          export GOCACHE=$HOME/env/go/cache;
+          export GOENV=$HOME/env/go/go.env;
+          export GOMODCACHE=$HOME/env/go/pkg/mod;
         '';
       };
     });
