@@ -20,26 +20,55 @@
     );
   in rec {
     devShells = forEachSystems ({ pkgs }: rec {
-      default = pkgs.mkShell {
+      fullstack = pkgs.mkShellNoCC {
         packages = with pkgs; [
-          llvm go php composer node
+          php composer node
         ];
 
         shellHook = ''
           echo -e "[λ] Nacht • Akasha's Nix Flake"
-          export WORKDIR=$HOME/work;
+          export WORKDIR=$HOME/work/fullstack;
           export ENVDIR=$HOME/env;
-          export GO111MODULE='on';
-          export GOPATH=$WORKDIR/go;
-          export GOBIN=$ENVDIR/go/bin;
-          export GOCACHE=$ENVDIR/go/cache;
-          export GOENV=$ENVDIR/go/go.env;
-          export GOMODCACHE=$ENVDIR/go/pkg/mod;
+          export GIT_CONFIG_GLOBAL=$ENVDIR/git/config;
           export COMPOSER_HOME=$ENVDIR/composer;
           export COMPOSER_BIN_DIR=$COMPOSER_HOME/bin;
           export COMPOSER_CACHE_DIR=$COMPOSER_HOME/cache;
           export COMPOSER_VENDOR_DIR=$COMPOSER_HOME/vendor;
+          cd $WORKDIR;
+        '';
+      };
+
+      backend = pkgs.mkShellNoCC {
+        packages = with pkgs; [
+          go
+        ];
+
+        shellHook = ''
+          echo -e "[λ] Nacht • Akasha's Nix Flake"
+          export WORKDIR=$HOME/work/backend;
+          export ENVDIR=$HOME/env;
           export GIT_CONFIG_GLOBAL=$ENVDIR/git/config;
+          export GO111MODULE='on';
+          export GOPATH=$WORKDIR/backend;
+          export GOBIN=$ENVDIR/go/bin;
+          export GOCACHE=$ENVDIR/go/cache;
+          export GOENV=$ENVDIR/go/go.env;
+          export GOMODCACHE=$ENVDIR/go/pkg/mod;
+          cd $WORKDIR;
+        '';
+      };
+
+      default = pkgs.mkShellNoCC {
+        packages = with pkgs; [
+          llvm
+        ];
+
+        shellHook = ''
+          echo -e "[λ] Nacht • Akasha's Nix Flake"
+          export WORKDIR=$HOME/work/system;
+          export ENVDIR=$HOME/env;
+          export GIT_CONFIG_GLOBAL=$ENVDIR/git/config;
+          cd $WORKDIR;
         '';
       };
     });
