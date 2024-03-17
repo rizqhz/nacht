@@ -27,12 +27,18 @@
 
         shellHook = ''
           echo -e "[λ] Nacht • Akasha's Nix Flake"
+          export WORKDIR=$HOME/work;
+          export ENVDIR=$HOME/env;
           export GO111MODULE='on';
-          export GOPATH=$HOME/work/go;
-          export GOBIN=$HOME/env/go/bin;
-          export GOCACHE=$HOME/env/go/cache;
-          export GOENV=$HOME/env/go/go.env;
-          export GOMODCACHE=$HOME/env/go/pkg/mod;
+          export GOPATH=$WORKDIR/go;
+          export GOBIN=$ENVDIR/go/bin;
+          export GOCACHE=$ENVDIR/go/cache;
+          export GOENV=$ENVDIR/go/go.env;
+          export GOMODCACHE=$ENVDIR/go/pkg/mod;
+          export COMPOSER_HOME=$ENVDIR/composer;
+          export COMPOSER_BIN_DIR=$COMPOSER_HOME/bin;
+          export COMPOSER_CACHE_DIR=$COMPOSER_HOME/cache;
+          export COMPOSER_VENDOR_DIR=$COMPOSER_HOME/vendor;
         '';
       };
     });
