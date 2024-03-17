@@ -25,10 +25,8 @@
           llvm go php composer node
         ];
 
-        GOENV = ~/env/go/go.env;
-
         shellHook = ''
-          echo -e "Hello Flakes"
+          export GOENV=$HOME/env/go/go.env
         '';
       };
     });
