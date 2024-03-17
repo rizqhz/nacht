@@ -24,6 +24,9 @@
         packages = with pkgs; [
           llvm go php composer node
         ];
+
+        GOENV = ~/env/go/go.env;
+
         shellHook = ''
           echo -e "Hello Flakes"
         '';
