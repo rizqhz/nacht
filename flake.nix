@@ -25,8 +25,14 @@
           llvm go php composer node
         ];
 
+        GO111MODULE = "on";
+        GOPATH = ~/work/go;
+        GOBIN = ~/env/go/bin;
+        GOMODCACHE = ~/env/go/pkg/mod;
+        GOCACHE = ~/env/go/cache;
+
         shellHook = ''
-          export GOENV=$HOME/env/go/go.env
+          echo -e "[λ] ${description}"
         '';
       };
     });
