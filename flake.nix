@@ -39,6 +39,7 @@
           export COMPOSER_BIN_DIR=$COMPOSER_HOME/bin;
           export COMPOSER_CACHE_DIR=$COMPOSER_HOME/cache;
           export COMPOSER_VENDOR_DIR=$COMPOSER_HOME/vendor;
+          export GIT_CONFIG_GLOBAL=$ENVDIR/git/config;
         '';
       };
     });
