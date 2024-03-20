@@ -62,7 +62,7 @@
 
       default = pkgs.mkShellNoCC {
         packages = with pkgs; [
-          llvm
+          llvm libcxx libcxxabi
         ];
 
         shellHook = ''
