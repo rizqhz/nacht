@@ -34,6 +34,8 @@
           export COMPOSER_BIN_DIR=$COMPOSER_HOME/bin;
           export COMPOSER_CACHE_DIR=$COMPOSER_HOME/cache;
           export COMPOSER_VENDOR_DIR=$COMPOSER_HOME/vendor;
+          export npm_config_cache=$ENVDIR/npm/cache;
+          export npm_config_userconfig=$ENVDIR/npm/config;
           cd $WORKDIR;
         '';
       };
